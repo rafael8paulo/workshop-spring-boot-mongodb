@@ -1,5 +1,6 @@
 package com.rpx.workshopmongo.resouces;
 
+import com.rpx.workshopmongo.domain.Post;
 import com.rpx.workshopmongo.domain.User;
 import com.rpx.workshopmongo.dto.UserDTO;
 import com.rpx.workshopmongo.service.UserService;
@@ -55,4 +56,12 @@ public class UserResouces {
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.noContent().build();
     }
+
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
+    }
+
 }
